@@ -190,15 +190,7 @@ controller.prototype.init = function (callback) {
                                 response['data'] = {"services": tmp.services, "daemons": tmp.daemons};
                             }
 
-                            if (process.env.SOAJS_DEPLOY_HA) {
-                                awareness_mw.getMw({
-                                    "awareness": _self.awareness,
-                                    "serviceName": _self.serviceName,
-                                    "log": _self.log,
-                                    "serviceIp": _self.serviceIp
-                                });
-                            }
-                            else if (parsedUrl.query && parsedUrl.query.update) {
+                            if (!process.env.SOAJS_DEPLOY_HA && parsedUrl.query && parsedUrl.query.update) {
                                 core.registry.addUpdateEnvControllers({
                                     "ip": _self.serviceIp,
                                     "ts": response.ts,
