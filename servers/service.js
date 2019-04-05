@@ -44,7 +44,7 @@ function service(param) {
         param.awarenessEnv = false;
     }
 
-    var defaultParam = ["bodyParser", "methodOverride", "cookieParser", "logger", "inputmask", "awareness"];
+    var defaultParam = ["fileParser", "bodyParser", "methodOverride", "cookieParser", "logger", "inputmask", "awareness"];
     var len = defaultParam.length;
     for (var i = 0; i < len; i++) {
         if (!Object.hasOwnProperty.call(param, defaultParam[i])) {
@@ -291,6 +291,16 @@ service.prototype.init = function (callback) {
             }
             else {
                 _self.log.info("Body-Parser middleware initialization skipped.");
+            }
+            
+            if(soajs.param.fileParser){
+	            var fileUpload = require('express-fileupload');
+	            var options = (typeof (soajs.param.fileParser) === 'object') ? soajs.param.fileParser : null;
+	            _self.app.use(fileUpload(options));
+	            _self.log.info("Express Files middleware initialization done.");
+            }
+            else{
+	            _self.log.info("Express Files middleware initialization skipped.");
             }
 
             if (soajs.param.methodOverride) {

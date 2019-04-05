@@ -42,6 +42,7 @@
     "cron": "1.2.1",
     "express": "4.16.0",
     "express-session": "1.15.6",
+    "express-fileupload": "1.1.4",
     "http-proxy": "1.16.2",
     "jsonwebtoken": "8.4.0",
     "merge": "1.2.1",
