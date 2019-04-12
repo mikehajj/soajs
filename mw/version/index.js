@@ -33,9 +33,6 @@ module.exports = function (configuration) {
             let pathToRegexp = require('path-to-regexp');
             let keys = [];
             let out = pathToRegexp(route, keys, {sensitive: true});
-            if (out && out.keys && out.keys.length > 0) {
-                out = new RegExp(out.toString());
-            }
             return out;
         }
 
