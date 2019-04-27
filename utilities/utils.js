@@ -19,7 +19,13 @@ function logErrors(err, req, res, next) {
 	if (typeof err === "object") {
 		if (err.code && err.message) {
 			req.soajs.log.error(err);
-			return next({"code": err.code, "msg": err.message});
+			
+			let error = {"code": err.code, "msg": err.message};
+			if(process.env.SOAJS_ERROR2HTTP && err.error){
+				error.error = err.error;
+				error.status = err.code;
+			}
+			return next(error);
 		}
 		else {
 			req.soajs.log.error(err);
@@ -94,7 +100,7 @@ function controllerClientErrorHandler(err, req, res, next) {
  */
 function controllerErrorHandler(err, req, res, next) {
 	if (err.code && err.msg) {
-		err.status = 500;
+		err.status = err.status || 500;
 		req.soajs.controllerResponse(err);
 	} else {
 		var errObj = core.error.getError(err);
