@@ -40,7 +40,7 @@ module.exports = function (configuration) {
 		            res.end(jsonObject.msg);
 	            }
 	            else{
-                    let jsonObj;
+                    let jsonObj = {};
                     if (req.soajs.buildResponse && jsonObject.code && jsonObject.msg)
                         jsonObj = req.soajs.buildResponse(jsonObject);
     
